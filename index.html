@@ -6,7 +6,8 @@
         body {
             font-family: 'Quicksand', arial, sans-serif;
         }
-        #numberarea{
+        
+        #numberarea {
             font-size: 24pt;
         }
     </style>
@@ -21,13 +22,44 @@
         Welcome to Multiply Driller
     </h1>
     <div id="numberarea">
-        <span id="random1">5</span> x <span id="random2">1</span>
+        <span id="random1">5</span> x <span id="random2">1</span> = <input id="answer">
     </div>
+    <div>
+        <img 
+            width="300" height="300" id="rightwronganswer">
+    </div>
+
 </body>
 <script>
     $(document).ready(function () {
-        $("#random2").text(Math.round(Math.random() * 10));
-        $("#random1").text(Math.round(Math.random() * 10));
+        var crossURL = "https://img.clipartfest.com/560aabb75eeb89b8d8b48046071162b7_red-cross-clip-art-transparent-background-clipart-x_600-600.png";
+        var tickURL = "https://cdn.pixabay.com/photo/2016/03/31/14/37/check-mark-1292787_960_720.png";
+
+
+        $("#rightwronganswer").hide();
+        var random1 = Math.round(Math.random() * 10);
+        var random2 = Math.round(Math.random() * 10);
+        $("#random1").text(random1);
+        $("#random2").text(random2);
+        $('#answer').keypress(function (e) {
+            var key = e.which;
+            if (key == 13)  // the enter key code
+            {
+                var answer = random1 * random2;
+                var useranswer = $("#answer").val();
+                console.log("user answered " + useranswer + " and correct answer is " + answer);
+                if (answer == useranswer ){
+                    console.log ("correct");
+                    $("#rightwronganswer").attr("src",tickURL);
+                }
+                else{
+                    console.log("wrong");
+                    $("#rightwronganswer").attr("src",crossURL);
+                
+                }
+                  $("#rightwronganswer").fadeIn();
+            }
+        });
 
     });
 
